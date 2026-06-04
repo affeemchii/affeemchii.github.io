@@ -7,18 +7,10 @@ const navLinks = [
   { label: "Experience", href: "#experience" },
   { label: "Skills", href: "#skills" },
   { label: "Sports", href: "#sports" },
-  { label: "Contact", href: "#contact" },
 ];
 
 export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 40);
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
@@ -28,57 +20,39 @@ export default function Navbar() {
   };
 
   return (
-    <>
-      <nav className={`navbar ${scrolled ? "scrolled" : ""}`}>
-        <a href="#hero" className="navbar-logo" onClick={(e) => handleNavClick(e, "#hero")}>
+    <nav className="global-nav">
+      <div className="global-nav-container">
+        <a 
+          href="#hero" 
+          className="text-nav-link text-on-dark" 
+          onClick={(e) => handleNavClick(e, "#hero")}
+          style={{ opacity: 0.8 }}
+        >
           Affan Ali
         </a>
-        <ul className="navbar-links">
+        <ul className="global-nav-links">
           {navLinks.map((link) => (
             <li key={link.href}>
-              <a href={link.href} onClick={(e) => handleNavClick(e, link.href)}>
+              <a 
+                href={link.href} 
+                className="text-nav-link text-on-dark" 
+                onClick={(e) => handleNavClick(e, link.href)}
+              >
                 {link.label}
               </a>
             </li>
           ))}
-          <li>
-            <a
-              href="#contact"
-              className="navbar-cta"
-              onClick={(e) => handleNavClick(e, "#contact")}
-            >
-              Hire Me
-            </a>
-          </li>
         </ul>
-        <button
-          className={`hamburger ${menuOpen ? "open" : ""}`}
-          onClick={() => setMenuOpen(!menuOpen)}
-          aria-label="Toggle menu"
-          id="hamburger-btn"
-        >
-          <span />
-          <span />
-          <span />
-        </button>
-      </nav>
-
-      {menuOpen && (
-        <div className="mobile-menu">
-          {navLinks.map((link) => (
-            <a key={link.href} href={link.href} onClick={(e) => handleNavClick(e, link.href)}>
-              {link.label}
-            </a>
-          ))}
+        <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
           <a
             href="#contact"
+            className="button-dark-utility"
             onClick={(e) => handleNavClick(e, "#contact")}
-            style={{ color: "var(--indigo-light)" }}
           >
-            Hire Me →
+            Hire Me
           </a>
         </div>
-      )}
-    </>
+      </div>
+    </nav>
   );
 }
