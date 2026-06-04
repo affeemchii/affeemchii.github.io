@@ -23,7 +23,7 @@ export default function Hero() {
 
         <div style={{ marginTop: 'var(--spacing-xxl)' }}>
           <Image
-            src="/avatar.png"
+            src="/avatar.jpg"
             alt="Affan Ali"
             width={400}
             height={400}
